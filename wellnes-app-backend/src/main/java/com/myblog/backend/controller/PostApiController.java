@@ -3,18 +3,10 @@ package com.myblog.backend.controller;
 import com.myblog.backend.services.PostService;
 import com.myblog.backend.entities.PostEntity;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("api/Posts")
@@ -25,11 +17,12 @@ public class PostApiController {
         this.service = service;
     }
 
-    @RequestMapping(path="/Create",method = RequestMethod.POST)
-    public void CreatePost(@RequestParam("heading") String heading,
+    @PostMapping(path="/Create")
+    public void CreatePost(@RequestParam("category") String category,
+                           @RequestParam("heading") String heading,
                            @RequestParam("desc") String desc,
                            @RequestParam("author") String author){
-        this.service.savePostDetail(heading,desc,author);
+        this.service.createPostDetail(category,heading,desc,author);
 
     }
      @GetMapping
@@ -37,21 +30,32 @@ public class PostApiController {
        return this.service.getAllPosts();
      }
 
-     @RequestMapping(path = "{id}",method= GET)
+     @GetMapping(path = "/{id}")
     public Optional<PostEntity> getPostById(@PathVariable (name = "id") long id){
         return this.service.getPostById(id);
      }
 
-     @RequestMapping(path="/update/{id}",method = RequestMethod.PUT)
+     @GetMapping(path="category/{category}")
+     public List<PostEntity> getAllPostByCategory(@PathVariable(name="category")String category){
+        return this.service.getPostByCategory(category);
+     }
+
+     @PutMapping(path="/update/{id}")
     public void updatePostById(@PathVariable(name="id")long id,
-                               @RequestParam(value = "heading",required = false)String heading ,
-                               @RequestParam(value = "desc",required = false)String desc,
-                               @RequestParam(value = "author",required = false)String author){
-        this.service.updatePostById(id,heading,desc,author);
+                               @RequestParam(value = "category")String category,
+                               @RequestParam(value = "heading")String heading ,
+                               @RequestParam(value = "desc")String desc,
+                               @RequestParam(value = "author")String author){
+        this.service.updatePostById(id,category,heading,desc,author);
 
      }
 
-     @RequestMapping(path="/delete/{id}",method = RequestMethod.DELETE)
+    @DeleteMapping(path="/delete")
+    public void deleteAllPosts(){
+        this.service.deleteAllPosts();
+    }
+
+    @DeleteMapping(path="/delete/{id}")
         public void deletePostById(@PathVariable(name="id")long id){
         this.service.deletePostById(id);
          }

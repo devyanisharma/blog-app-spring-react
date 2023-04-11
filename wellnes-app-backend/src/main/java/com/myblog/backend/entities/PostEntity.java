@@ -5,10 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import org.springframework.format.annotation.DateTimeFormat;
-
-
-import java.util.Date;
 
 @Entity
 public class PostEntity {
@@ -16,21 +12,24 @@ public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(name="CATEGORY")
+    private String category;
     @Column(name = "POST_HEADING")
     private String heading;
 
     @Column(name = "POST_DESC")
     private String desc;
-
-
-    @Column(name = "POST_DATE")
-    private String postDate;
-
+    @Column(name="AUTHOR")
+    private String authorName;
+    @Column(name = "CREATED_DATE")
+    private String createdDate;
     @Column(name = "UPDATED_DATE")
     private String updatedDate;
-
-    @Column(name="POST_AUTHOR")
-    private String authorName;
+    @Column(name="PUBLISH_STATUS")
+    private String publishStatus;
+    @Column(name = "PUBLISH_DATE")
+    private String publishDate;
 
     public long getId() {
         return id;
@@ -38,6 +37,14 @@ public class PostEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String postCategory) {
+        this.category = postCategory;
     }
 
     public String getHeading() {
@@ -56,12 +63,20 @@ public class PostEntity {
         this.desc = desc;
     }
 
-    public String getPostDate() {
-        return postDate;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setPostDate(String postDate) {
-        this.postDate = postDate;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getUpdatedDate() {
@@ -72,23 +87,34 @@ public class PostEntity {
         this.updatedDate = updatedDate;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getPublishStatus() {
+        return publishStatus;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setPublishStatus(String publishStatus) {
+        this.publishStatus = publishStatus;
+    }
+
+    public String getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
     }
 
     @Override
     public String toString() {
         return "PostEntity{" +
                 "id=" + id +
+                ", category='" + category + '\'' +
                 ", heading='" + heading + '\'' +
                 ", desc='" + desc + '\'' +
-                ", postDate=" + postDate +
-                ", updatedDate=" + updatedDate +
                 ", authorName='" + authorName + '\'' +
+                ", createdDate='" + createdDate + '\'' +
+                ", updatedDate='" + updatedDate + '\'' +
+                ", publishStatus='" + publishStatus + '\'' +
+                ", publishDate='" + publishDate + '\'' +
                 '}';
     }
 }
