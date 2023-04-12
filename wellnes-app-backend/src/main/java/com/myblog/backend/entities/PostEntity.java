@@ -20,8 +20,12 @@ public class PostEntity {
 
     @Column(name = "POST_DESC")
     private String desc;
+
+    @Column(name = "AUTHOR_ID")
+    private String authorId;
     @Column(name="AUTHOR")
     private String authorName;
+
     @Column(name = "CREATED_DATE")
     private String createdDate;
     @Column(name = "UPDATED_DATE")
@@ -67,6 +71,14 @@ public class PostEntity {
         return authorName;
     }
 
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
@@ -110,6 +122,7 @@ public class PostEntity {
                 ", category='" + category + '\'' +
                 ", heading='" + heading + '\'' +
                 ", desc='" + desc + '\'' +
+                ", authorId='" + authorId + '\'' +
                 ", authorName='" + authorName + '\'' +
                 ", createdDate='" + createdDate + '\'' +
                 ", updatedDate='" + updatedDate + '\'' +

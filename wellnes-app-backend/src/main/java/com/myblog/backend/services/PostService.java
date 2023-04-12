@@ -25,11 +25,12 @@ public class PostService {
 
     }
 
-    public void createPostDetail(String category,String heading, String desc, String author){
+    public void createPostDetail(String category,String heading, String desc,String authorId,String author){
         PostEntity post = new PostEntity();
         post.setCategory(category);
         post.setHeading(heading);
         post.setDesc(desc);
+        post.setAuthorId(authorId);
         post.setCreatedDate(date.getSystemDate());
         post.setUpdatedDate(date.getSystemDate());
         post.setPublishDate(date.getSystemDate());
@@ -54,7 +55,7 @@ public class PostService {
     }
 
 
-    public void updatePostById(long id,String category,String heading,String desc,String author){
+    public void updatePostById(long id,String category,String heading,String desc,String authorId,String author){
         if(this.repository.existsById(id)){
             PostEntity post = new PostEntity();
             post.setId(id);
@@ -65,6 +66,7 @@ public class PostService {
             post.setPublishStatus(this.repository.findById(id).get().getPublishStatus());
             post.setPublishDate(this.repository.findById(id).get().getPublishDate());
             post.setUpdatedDate(date.getSystemDate());
+            post.setAuthorId(authorId);
             post.setAuthorName(author);
             System.out.println("updated request" + post);
             this.repository.save(post);
